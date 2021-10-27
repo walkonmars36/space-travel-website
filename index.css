@@ -1,27 +1,42 @@
-/* ------------------- */
-/* Custom properties   */
-/* ------------------- */
-
 :root {
-  /* colors */
+  /* COLOURS */
   --clr-dark: 230 35% 7%;
   --clr-light: 231 77% 90%;
   --clr-white: 0 0% 100%;
 
-  /* font-sizes */
-  --fs-900: 9.375rem; /* font-weight 900 - 150px */
-  --fs-800: 6.25rem; /* font-weight 800 - 100px */
-  --fs-700: 3.5rem; /* font-weight 700 - 56px */
-  --fs-600: 2rem; /* font-weight 600 - 32px */
-  --fs-500: 1.75rem; /* font-weight 500 - 28px */
-  --fs-400: 1.125rem; /* font-weight 400 - 18px */
-  --fs-300: 1rem; /* font-weight 300 - 16px */
-  --fs-200: 0.875rem; /* font-weight 200 - 14px */
-
-  /* font-families */
+  /* FONT-FAMILIES */
   --ff-serif: "Bellefair", serif;
   --ff-sans-cond: "Barlow Condensed", sans-serif;
   --ff-sans-normal: "Barlow", sans-serif;
+
+  /* FONT SIZES */
+  --fs-900: clamp(5rem, 8vw + 1rem, 9.375rem);
+  --fs-800: 3.5rem;
+  --fs-700: 1.5rem;
+  --fs-600: 1rem;
+  --fs-500: 1.75rem;
+  --fs-400: 0.9375rem;
+  --fs-300: 1rem;
+  --fs-200: 0.875rem;
+}
+
+@media (min-width: 35em) {
+  :root {
+    --fs-900: 9.375rem;
+    --fs-800: 5rem;
+    --fs-700: 2.5rem;
+    --fs-600: 1.5rem;
+    --fs-400: 1rem;
+  }
+}
+
+@media (min-width: 47.5em) {
+  :root {
+    --fs-800: 6.25rem;
+    --fs-700: 3.5rem;
+    --fs-600: 2rem;
+    --fs-400: 1.125rem;
+  }
 }
 
 /* ------------------- */
@@ -58,6 +73,9 @@ body {
   color: hsl(var(--clr-white));
   line-height: 1.5;
   min-height: 100vh;
+
+  display: grid;
+  grid-template-rows: min-content 1fr;
 }
 
 /* make images easier to work with */
@@ -103,10 +121,35 @@ select {
   gap: var(--gap, 1rem);
 }
 
+.d-block {
+  display: block;
+}
+
 .container {
   padding-inline: 2em;
   margin-inline: auto;
   max-width: 80rem;
+}
+
+.grid-container {
+  border: 5px solid limegreen;
+  display: grid;
+}
+
+@media (min-width: 47.5em) {
+  .grid-container {
+    grid-template-columns: minmax(2rem, 1fr) repeat(2, minmax(0, 40rem)) minmax(2rem, 1fr);
+    column-gap: var(--container-gap, 2rem);
+  }
+  .grid-container > *:first-child {
+    grid-column: 2;
+    outline: 1px solid red;
+  }
+
+  .grid-container > *:last-child {
+    grid-column: 3;
+    outline: 1px solid yellow;
+  }
 }
 
 .flow > *:where(:not(:first-child)) {
@@ -126,7 +169,7 @@ select {
   border: 0;
 }
 
-/* colors */
+/* COLOURS */
 
 .bg-dark {
   background-color: hsl(var(--clr-dark));
