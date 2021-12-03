@@ -1,20 +1,18 @@
 :root {
-  /* COLOURS */
   --clr-dark: 230 35% 7%;
   --clr-light: 231 77% 90%;
   --clr-white: 0 0% 100%;
-
-  /* FONT-FAMILIES */
-  --ff-serif: "Bellefair", serif;
   --ff-sans-cond: "Barlow Condensed", sans-serif;
   --ff-sans-normal: "Barlow", sans-serif;
-
+  --ff-serif: "Bellefair", serif;
+  /* COLOURS */
+  /* FONT-FAMILIES */
   /* FONT SIZES */
-  --fs-900: clamp(5rem, 8vw + 1rem, 9.375rem);
+  --fs-900: clamp(5rem, 10vw + 1rem, 9.375rem);
   --fs-800: 3.5rem;
   --fs-700: 1.5rem;
-  --fs-600: 1rem;
-  --fs-500: 1.75rem;
+  --fs-600: 1.25rem;
+  --fs-500: 1rem;
   --fs-400: 0.9375rem;
   --fs-300: 1rem;
   --fs-200: 0.875rem;
@@ -22,19 +20,19 @@
 
 @media (min-width: 35em) {
   :root {
-    --fs-900: 9.375rem;
     --fs-800: 5rem;
     --fs-700: 2.5rem;
-    --fs-600: 1.5rem;
+    --fs-600: 2rem;
+    --fs-500: 1.25rem;
     --fs-400: 1rem;
   }
 }
 
-@media (min-width: 47.5em) {
+@media (min-width: 45rem) {
   :root {
     --fs-800: 6.25rem;
     --fs-700: 3.5rem;
-    --fs-600: 2rem;
+    --fs-500: 1.75rem;
     --fs-400: 1.125rem;
   }
 }
@@ -67,22 +65,22 @@ picture {
 
 /* set up the body */
 body {
-  font-family: var(--ff-sans-normal);
-  font-weight: var(--fs-400);
   background: hsl(var(--clr-dark));
   color: hsl(var(--clr-white));
+  display: grid;
+  font-family: var(--ff-sans-normal);
+  font-weight: var(--fs-400);
+  grid-template-rows: min-content 1fr;
   line-height: 1.5;
   min-height: 100vh;
-
-  display: grid;
-  grid-template-rows: min-content 1fr;
+  overflow-x: hidden;
 }
 
 /* make images easier to work with */
 img,
 picture {
-  max-width: 100%;
   display: block;
+  max-width: 100%;
 }
 
 /* make form elements easier to work with */
@@ -100,8 +98,8 @@ select {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
@@ -126,47 +124,59 @@ select {
 }
 
 .container {
-  padding-inline: 2em;
   margin-inline: auto;
   max-width: 80rem;
+  padding-inline: 2em;
 }
 
 .grid-container {
-  border: 5px solid limegreen;
   display: grid;
+  padding-inline: 1em;
+  place-items: center;
+  text-align: center;
 }
 
-@media (min-width: 47.5em) {
+.grid-container > * {
+  color: hsl(var(--clr-light));
+  max-width: 50ch;
+}
+
+@media (min-width: 45rem) {
   .grid-container {
-    grid-template-columns: minmax(2rem, 1fr) repeat(2, minmax(0, 40rem)) minmax(2rem, 1fr);
     column-gap: var(--container-gap, 2rem);
+    grid-template-columns: minmax(2rem, 1fr) repeat(2, minmax(0, 40rem)) minmax(2rem, 1fr);
+    text-align: left;
   }
   .grid-container > *:first-child {
     grid-column: 2;
-    outline: 1px solid red;
   }
 
   .grid-container > *:last-child {
     grid-column: 3;
-    outline: 1px solid yellow;
+  }
+
+  .grid-container--home {
+    align-items: end;
+    padding-bottom: max(6rem, 20vh);
   }
 }
 
 .flow > *:where(:not(:first-child)) {
   margin-top: var(--flow-space, 2rem);
-  /* outline: 1px solid red; */
 }
 
 .sr-only {
-  position: absolute;
-  width: 1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
   height: 1px;
-  padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap; /* added line */
-  border: 0;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+
+  /* added line */
 }
 
 /* COLOURS */
@@ -260,14 +270,14 @@ h6 {
 .numbered-title {
   font-family: var(--ff-sans-cond);
   font-size: var(--fs-500);
-  text-transform: uppercase;
   letter-spacing: 4.72px;
+  text-transform: uppercase;
 }
 
 .numbered-title span {
+  color: hsl(var(--clr-white) / 0.25);
   font-weight: 700;
   margin-right: 0.5em;
-  color: hsl(var(--clr-white) / 0.25);
 }
 
 /* ------------------- */
@@ -275,19 +285,59 @@ h6 {
 /* ------------------- */
 
 /* NAVIGATION */
+
 .primary-navigation {
-  --gap: 8rem;
-  --underline-gap: 2em;
-  justify-content: center;
-  background: hsl(var(--clr-white) / 0.04);
+  --underline-gap: 2rem;
+  background: hsl(var(--clr-dark) / 0.97);
   list-style: none;
+  margin: 0;
   padding: 0;
-  margin-top: 3rem;
+}
+
+@supports (backdrop-filter: blur(3rem)) {
+  .primary-navigation {
+    backdrop-filter: blur(3rem);
+    background: hsl(var(--clr-white) / 0.05);
+  }
+}
+
+.mobile-nav-toggle {
+  display: none;
+}
+
+@media (max-width: 35rem) {
+  .primary-navigation {
+    --underline-gap: 0.5rem;
+    flex-direction: column;
+    inset: 0 0 0 30%;
+    padding: min(10rem, 15vh) 2rem;
+    position: fixed;
+    transform: translateX(100%);
+    z-index: 1000;
+  }
+
+  .primary-navigation.underline-indicators > .active {
+    border: 0;
+  }
+
+  .mobile-nav-toggle {
+    aspect-ratio: 1;
+    background-image: url(./starter-code/assets/shared/icon-hamburger.svg);
+    background-repeat: no-repeat;
+    background: transparent;
+    border: 0;
+    display: block;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    width: 1.5rem;
+    z-index: 2000;
+  }
 }
 
 .primary-navigation a {
-  text-decoration: none;
   font-size: var(--fs-300);
+  text-decoration: none;
 }
 
 .primary-navigation a > span {
@@ -298,26 +348,26 @@ h6 {
 /* INTERACTIVE ELEMENTS */
 
 .large-button {
-  position: relative;
+  aspect-ratio: 1;
   border-radius: 50%;
   display: inline-grid;
-  z-index: 1;
-  place-items: center;
   padding: 0 2em;
-  aspect-ratio: 1;
+  place-items: center;
+  position: relative;
   text-decoration: none;
+  z-index: 1;
 }
 
 .large-button::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
   background: hsl(var(--clr-white) / 0.15);
-  width: 100%;
-  height: 100%;
   border-radius: inherit;
+  content: "";
+  height: 100%;
   opacity: 0;
+  position: absolute;
   transition: opacity 500ms linear, transform 750ms ease-in-out;
+  width: 100%;
+  z-index: -1;
 }
 
 .large-button:hover::after,
@@ -328,32 +378,30 @@ h6 {
 
 .navigation-parag {
   color: hsl(var(--clr-light));
-  text-align: center;
   padding-top: 1rem;
+  text-align: center;
 }
 
 .interactive {
   justify-content: space-between;
-  width: 80%;
   margin: 9rem auto;
+  width: 80%;
 }
 
 .interactive > * p {
   color: hsl(var(--clr-light));
   font-family: var(--ff-sans-normal);
   font-size: var(--fs-400);
-
   text-align: center;
 }
 
 .underline-indicators > * {
-  cursor: pointer;
-  padding: var(--underline-gap, 1rem) 0;
-  border: 0;
   background: none;
   border-bottom: 0.2rem solid hsl(var(--clr-white) / 0);
+  border: 0;
+  cursor: pointer;
+  padding: var(--underline-gap, 1rem) 0;
 }
-
 .underline-indicators > *:hover,
 .underline-indicators > *:focus {
   border-color: hsl(var(--clr-white) / 0.5);
@@ -380,12 +428,12 @@ h6 {
 }
 
 .dot-indicators > * {
-  cursor: pointer;
-  border: 0;
   aspect-ratio: 1;
-  padding: 0.5rem;
-  border-radius: 50%;
   background: hsl(var(--clr-white) / 0.25);
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 
 .dot-indicators > *:hover,
@@ -404,16 +452,15 @@ h6 {
 }
 
 .circle-indicators > * {
-  cursor: pointer;
+  background: hsl(var(--clr-dark));
+  border-radius: 50%;
+  border: 0.1rem solid hsl(var(--clr-white) / 0.25);
   border: 0;
-  width: 6.25rem;
+  color: hsl(var(--clr-white));
+  cursor: pointer;
   height: 6.25rem;
   margin: 1rem auto;
-
-  border-radius: 50%;
-  background: hsl(var(--clr-dark));
-  color: hsl(var(--clr-white));
-  border: 0.1rem solid hsl(var(--clr-white) / 0.25);
+  width: 6.25rem;
 }
 
 .circle-indicators > *:hover,
@@ -424,4 +471,30 @@ h6 {
 .circle-indicators > [aria-selected="true"] {
   background-color: hsl(var(--clr-white) / 1);
   color: hsl(var(--clr-dark));
+}
+
+/* ------------------------- */
+/* PAGE SPECIFIC BACKGROUNDS */
+/* ------------------------- */
+
+body {
+  background-position: bottom center;
+  background-size: cover;
+}
+
+.home {
+  background-image: url(./starter-code/assets/home/background-home-mobile.jpg);
+}
+
+@media (min-width: 35rem) {
+  .home {
+    background-image: url(./starter-code/assets/home/background-home-tablet.jpg);
+    background-position: center center;
+  }
+}
+
+@media (min-width: 45rem) {
+  .home {
+    background-image: url(./starter-code/assets/home/background-home-desktop.jpg);
+  }
 }
